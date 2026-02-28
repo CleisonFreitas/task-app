@@ -1,10 +1,14 @@
-<section class="min-h-screen bg-slate-100 p-6 flex flex-col gap-6 max-w-3xl mx-auto">
+<section class="p-6 max-w-3xl mx-auto">
 
   <app-todo-form (save)="addTask($event)"></app-todo-form>
 
+  <div *ngIf="loading" class="text-center py-6 text-gray-500">
+    Carregando tarefas...
+  </div>
+
   <app-todo-list
-    [tasks]="tasks"
-    (view)="viewTask($event)">
+    *ngIf="!loading"
+    [tasks]="tasks">
   </app-todo-list>
 
 </section>
