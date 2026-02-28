@@ -1,0 +1,51 @@
+<section class="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 to-red-50 px-4">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-red-100 p-8 flex flex-col gap-6">
+
+    <!-- Header -->
+    <div class="text-center space-y-2">
+      <h1 class="text-2xl font-semibold text-gray-800">
+        Task App
+      </h1>
+      <p class="text-sm text-gray-500">
+        Faça login para continuar
+      </p>
+    </div>
+
+    <!-- Inputs -->
+    <div class="flex flex-col gap-5">
+      <app-custom-input
+        label="Email"
+        type="text"
+        placeholder="Digite seu email"
+        icon="faUser">
+      </app-custom-input>
+
+      <app-custom-input
+        label="Senha"
+        type="password"
+        placeholder="**********"
+        icon="faSolidKey">
+      </app-custom-input>
+    </div>
+
+    <!-- Botão -->
+    <button
+      class="w-full bg-red-400 text-white py-3 rounded-xl font-medium
+             transition-all duration-300
+             hover:bg-white hover:text-red-400 hover:border hover:border-red-400
+             active:scale-[0.98]">
+      Acessar
+    </button>
+
+    <!-- Link Registro -->
+    <p class="text-center text-sm text-gray-500">
+      Não possui conta?
+      <a
+        routerLink="/register"
+        class="text-red-400 font-medium hover:underline cursor-pointer">
+        Criar conta
+      </a>
+    </p>
+
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4">
+
+  <h2 class="text-xl font-semibold text-gray-800">
+    Nova tarefa
+  </h2>
+
+  <input
+    [(ngModel)]="title"
+    placeholder="Título"
+    class="w-full p-3 rounded-xl border border-gray-200 focus:border-red-400 outline-none"
+  />
+
+  <textarea
+    [(ngModel)]="description"
+    placeholder="Descrição"
+    rows="3"
+    class="w-full p-3 rounded-xl border border-gray-200 focus:border-red-400 outline-none resize-none"
+  ></textarea>
+
+  <label class="flex items-center gap-2 text-sm text-gray-600">
+    <input type="checkbox" [(ngModel)]="completed" />
+    Concluído
+  </label>
+
+  <button
+    (click)="onSubmit()"
+    class="bg-red-400 text-white py-2 rounded-xl transition-all duration-300
+           hover:bg-white hover:text-red-400 hover:border hover:border-red-400">
+    Salvar
+  </button>
+
+</div>
