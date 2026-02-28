@@ -1,32 +1,48 @@
-import { Component } from '@angular/core';
-import { TodoForm } from '../../shared/todo-form/todo-form';
+import { Component, OnInit } from '@angular/core';
+import { TaskService } from '../../features/tasks/task.service';
+import { Task } from '../../features/tasks/task.model';
+import { CommonModule } from '@angular/common';
 import { TodoList } from '../../shared/todo-list/todo-list';
+import { TodoForm } from '../../shared/todo-form/todo-form';
 
 @Component({
   standalone: true,
-  imports: [TodoForm, TodoList],
   templateUrl: './task.screen.html',
+  imports: [
+    CommonModule,
+    TodoList,
+    TodoForm
+  ],
 })
-export class TasksScreen {
+export class TaskScreen implements OnInit {
 
-  tasks = [
-    {
-      title: 'Criar layout',
-      description: 'Finalizar tela de tarefas',
-      completed: false
-    },
-    {
-      title: 'Estudar Angular',
-      description: 'Aprender ControlValueAccessor',
-      completed: true
-    }
-  ];
+  tasks: Task[] = [];
+  loading = true;
 
-  addTask(task: any) {
-    this.tasks.push(task);
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit() {
+    this.loadTasks();
   }
 
-  viewTask(task: any) {
-    alert(`Visualizando: ${task.title}`);
+  loadTasks() {
+    this.loading = true;
+
+    this.taskService.getAll().subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        console.error('Erro ao carregar tarefas');
+      }
+    });
+  }
+
+  addTask(task: Task) {
+    this.taskService.create(task).subscribe(() => {
+      this.loadTasks();
+    });
   }
 }
