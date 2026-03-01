@@ -19,6 +19,7 @@ export class TaskScreen implements OnInit {
 
   tasks: Task[] = [];
   loading = true;
+  selectedTask: Task | null = null;
 
   constructor(
     private taskService: TaskService,
@@ -44,8 +45,31 @@ export class TaskScreen implements OnInit {
     });
   }
 
-  addTask(task: Task) {
-    this.taskService.create(task).subscribe(() => {
+  saveTask(task: Task) {
+
+    if (this.selectedTask) {
+      // UPDATE
+      this.taskService.update(this.selectedTask.id!, task)
+        .subscribe(() => {
+          this.selectedTask = null;
+          this.loadTasks();
+        });
+
+    } else {
+      // CREATE
+      this.taskService.create(task)
+        .subscribe(() => {
+          this.loadTasks();
+        });
+    }
+  }
+
+  editTask(task: Task) {
+    this.selectedTask = { ...task }; // evita mutação direta
+  }
+
+  deleteTask(task: Task) {
+    this.taskService.delete(task.id!).subscribe(() => {
       this.loadTasks();
     });
   }

@@ -7,11 +7,11 @@
   <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
 
     <app-custom-input [(ngModel)]="titulo" name="titulo" id="titulo" label="Título" placeholder="Digite o título"
-      [error]="errors['title']">
+      [error]="errors['titulo']">
     </app-custom-input>
 
     <app-custom-input [(ngModel)]="descricao" name="descricao" id="descricao" label="Descrição"
-      placeholder="Digite a descrição" [error]="errors['description']">
+      placeholder="Digite a descrição" [error]="errors['descricao']">
     </app-custom-input>
 
     <label class="flex items-center gap-2 text-sm text-gray-600">
@@ -24,7 +24,5 @@
            active:scale-[0.98] cursor-pointer">
       Salvar
     </button>
-
   </form>
-
 </div>
