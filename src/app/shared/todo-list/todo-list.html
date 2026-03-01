@@ -4,8 +4,7 @@
     Suas tarefas
   </h2>
 
-  <div *ngFor="let task of tasks"
-       class="flex justify-between items-center bg-slate-100 p-4 rounded-xl gap-2">
+  <div *ngFor="let task of tasks" class="flex justify-between items-center bg-slate-100 p-4 rounded-xl gap-2">
 
     <div class="flex flex-col">
       <span class="font-medium text-gray-800">
@@ -16,30 +15,24 @@
         {{ task.descricao }}
       </span>
 
-      <span
-        class="text-xs mt-1"
-        [ngClass]="task.concluida ? 'text-green-500' : 'text-yellow-500'">
+      <span class="text-xs mt-1" [ngClass]="task.concluida ? 'text-green-500' : 'text-yellow-500'">
         {{ task.concluida ? 'Concluído' : 'Pendente' }}
       </span>
     </div>
 
     <div class="flex gap-2">
 
-    <button
-      (click)="onEdit(task)"
-      class="text-sm px-3 py-1 rounded-lg border border-blue-400 text-blue-400
+      <button (click)="onEdit(task)" class="text-sm px-3 py-1 rounded-lg border border-blue-400 text-blue-400
             hover:bg-blue-400 hover:text-white transition-all duration-300">
-      Editar
-    </button>
+        Editar
+      </button>
 
-    <button
-      (click)="onDelete(task)"
-      class="text-sm px-3 py-1 rounded-lg border border-red-400 text-red-400
+      <button (click)="onDelete(task)" class="text-sm px-3 py-1 rounded-lg border border-red-400 text-red-400
             hover:bg-red-400 hover:text-white transition-all duration-300">
-      Excluir
-    </button>
+        Excluir
+      </button>
 
-</div>
+    </div>
 
   </div>
 

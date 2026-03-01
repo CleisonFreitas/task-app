@@ -48,7 +48,6 @@ export class TaskScreen implements OnInit {
   saveTask(task: Task) {
 
     if (this.selectedTask) {
-      // UPDATE
       this.taskService.update(this.selectedTask.id!, task)
         .subscribe(() => {
           this.selectedTask = null;
@@ -56,7 +55,6 @@ export class TaskScreen implements OnInit {
         });
 
     } else {
-      // CREATE
       this.taskService.create(task)
         .subscribe(() => {
           this.loadTasks();
@@ -65,7 +63,7 @@ export class TaskScreen implements OnInit {
   }
 
   editTask(task: Task) {
-    this.selectedTask = { ...task }; // evita mutação direta
+    this.selectedTask = { ...task };
   }
 
   deleteTask(task: Task) {
