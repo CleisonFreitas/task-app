@@ -10,6 +10,9 @@ Este projeto é um pequeno aplicativo Angular para gerenciamento de tarefas. A e
 - Armazenamento de token JWT e interceptador HTTP para enviar o cabeçalho
 - Componentes compartilhados para formulários e listas de tarefas
 
+### Tecnologia
+- Node(24+)
+
 ### Como subir
 
 1. Instale as dependências:
