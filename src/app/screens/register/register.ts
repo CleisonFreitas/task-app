@@ -58,7 +58,7 @@ export class Register {
       .subscribe({
         next: (response: AuthResponse) => {
           const token = response.data.access_token;
-          localStorage.setItem('token', token);
+          localStorage.setItem('access_token', token);
           this.router.navigate(['/todo']);
         },
         error: (err) => {
