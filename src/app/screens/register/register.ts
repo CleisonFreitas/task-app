@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { AuthService } from '../../features/auth/auth.service';
 import { CustomInput } from '../../shared/custom-input/custom-input';
 import { AuthResponse } from '../../core/api/auth.response';
 import { finalize } from 'rxjs';
+import { TokenService } from '../../features/auth/token.service';
 
 @Component({
   standalone: true,
@@ -22,24 +23,30 @@ export class Register {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   private mapFieldErrors(messages: string[]) {
-    messages.forEach(msg => {
 
+    const errors: Record<string, string> = {};
+
+    messages.forEach(msg => {
       if (msg.toLowerCase().includes('email')) {
-        this.fieldErrors['email'] = msg;
+        errors['email'] = msg;
       }
 
       if (msg.toLowerCase().includes('senha')) {
-        this.fieldErrors['senha'] = msg;
+        errors['senha'] = msg;
       }
 
       if (msg.toLowerCase().includes('nome')) {
-        this.fieldErrors['nome'] = msg;
+        errors['nome'] = msg;
       }
     });
+
+    this.fieldErrors = errors;
   }
 
   onSubmit() {
@@ -53,12 +60,15 @@ export class Register {
       senha: this.senha
     })
       .pipe(
-        finalize(() => this.loading = false)
+        finalize(() => {
+          this.loading = false;
+          this.cdr.markForCheck();
+        })
       )
       .subscribe({
         next: (response: AuthResponse) => {
           const token = response.data.access_token;
-          localStorage.setItem('access_token', token);
+          this.tokenService.setToken(token);
           this.router.navigate(['/todo']);
         },
         error: (err) => {
@@ -68,8 +78,8 @@ export class Register {
           } else {
             this.generalError = message;
           }
+          this.cdr.markForCheck();
         }
       });
-
   }
 }

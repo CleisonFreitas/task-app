@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,6 @@ import { AuthResponse } from '../../core/api/auth.response';
   templateUrl: './login.html',
 })
 export class Login {
-
   email = '';
   senha = '';
   loading = false;
@@ -26,7 +25,8 @@ export class Login {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   onSubmit() {
@@ -39,7 +39,10 @@ export class Login {
       senha: this.senha
     })
     .pipe(
-      finalize(() => this.loading = false)
+      finalize(() => {
+        this.loading = false;
+        this.cdr.markForCheck();
+      })
     )
     .subscribe({
       next: (response: AuthResponse) => {
@@ -57,6 +60,7 @@ export class Login {
         } else {
           this.generalError = 'Erro inesperado';
         }
+        this.cdr.markForCheck();
       }
     });
   }
@@ -71,7 +75,6 @@ export class Login {
       if (msg.toLowerCase().includes('senha')) {
         this.fieldErrors.senha = msg;
       }
-
     });
   }
 }
