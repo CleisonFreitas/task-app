@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIcon } from '@ng-icons/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
@@ -16,7 +16,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class CustomInput {
+export class CustomInput implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
@@ -32,5 +32,28 @@ export class CustomInput {
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  value = '';
+
+  onChange = (value: string) => { };
+  onTouched = () => { };
+
+  writeValue(value: string): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  handleInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.value = input.value;
+    this.onChange(this.value);
   }
 }
