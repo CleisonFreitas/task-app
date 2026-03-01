@@ -23,7 +23,7 @@ export class Register {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   private mapFieldErrors(messages: string[]) {
     messages.forEach(msg => {
