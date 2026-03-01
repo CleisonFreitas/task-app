@@ -26,4 +26,13 @@ export class AuthService {
         })
       );
   }
+
+  login(data: { email: string; senha: string }): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, data)
+      .pipe(
+        tap(response => {
+          this.tokenService.setToken(response.data.access_token);
+        })
+      );
+  }
 }
