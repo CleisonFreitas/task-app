@@ -1,32 +1,30 @@
-<div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4">
+<div class="bg-white rounded-2xl shadow-md p-6">
 
-  <h2 class="text-xl font-semibold text-gray-800">
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">
     Nova tarefa
   </h2>
 
-  <input
-    [(ngModel)]="title"
-    placeholder="Título"
-    class="w-full p-3 rounded-xl border border-gray-200 focus:border-red-400 outline-none"
-  />
+  <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
 
-  <textarea
-    [(ngModel)]="description"
-    placeholder="Descrição"
-    rows="3"
-    class="w-full p-3 rounded-xl border border-gray-200 focus:border-red-400 outline-none resize-none"
-  ></textarea>
+    <app-custom-input [(ngModel)]="titulo" name="titulo" id="titulo" label="Título" placeholder="Digite o título"
+      [error]="errors['title']">
+    </app-custom-input>
 
-  <label class="flex items-center gap-2 text-sm text-gray-600">
-    <input type="checkbox" [(ngModel)]="completed" />
-    Concluído
-  </label>
+    <app-custom-input [(ngModel)]="descricao" name="descricao" id="descricao" label="Descrição"
+      placeholder="Digite a descrição" [error]="errors['description']">
+    </app-custom-input>
 
-  <button
-    (click)="onSubmit()"
-    class="bg-red-400 text-white py-2 rounded-xl transition-all duration-300
-           hover:bg-white hover:text-red-400 hover:border hover:border-red-400">
-    Salvar
-  </button>
+    <label class="flex items-center gap-2 text-sm text-gray-600">
+      <input type="checkbox" [(ngModel)]="concluida" name="concluida" />
+      Concluído
+    </label>
+
+    <button type="submit" class="bg-red-400 text-white py-2 rounded-lg transition-all duration-300
+           hover:bg-white hover:text-red-400 hover:border hover:border-red-400
+           active:scale-[0.98] cursor-pointer">
+      Salvar
+    </button>
+
+  </form>
 
 </div>

@@ -4,6 +4,7 @@ import { Task } from '../../features/tasks/task.model';
 import { CommonModule } from '@angular/common';
 import { TodoList } from '../../shared/todo-list/todo-list';
 import { TodoForm } from '../../shared/todo-form/todo-form';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -19,7 +20,10 @@ export class TaskScreen implements OnInit {
   tasks: Task[] = [];
   loading = true;
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.loadTasks();
@@ -29,13 +33,13 @@ export class TaskScreen implements OnInit {
     this.loading = true;
 
     this.taskService.getAll().subscribe({
-      next: (data) => {
+      next: (data: Task[]) => {
         this.tasks = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.loading = false;
-        console.error('Erro ao carregar tarefas');
       }
     });
   }

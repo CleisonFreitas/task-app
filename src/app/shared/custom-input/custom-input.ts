@@ -22,6 +22,7 @@ export class CustomInput implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() id: string = '';
   @Input() icon?: string;
+  @Input() error?: string;
 
   isPasswordVisible = false;
 

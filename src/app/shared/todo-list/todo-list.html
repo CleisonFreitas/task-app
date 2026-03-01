@@ -9,17 +9,17 @@
 
     <div class="flex flex-col">
       <span class="font-medium text-gray-800">
-        {{ task.title }}
+        {{ task.titulo }}
       </span>
 
       <span class="text-sm text-gray-500">
-        {{ task.description }}
+        {{ task.descricao }}
       </span>
 
       <span
         class="text-xs mt-1"
-        [ngClass]="task.completed ? 'text-green-500' : 'text-yellow-500'">
-        {{ task.completed ? 'Concluído' : 'Pendente' }}
+        [ngClass]="task.concluida ? 'text-green-500' : 'text-yellow-500'">
+        {{ task.concluida ? 'Concluído' : 'Pendente' }}
       </span>
     </div>
 
