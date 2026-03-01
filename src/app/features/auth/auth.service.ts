@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegisterPayload, AuthResponse } from './auth.model';
+import { RegisterPayload } from './auth.model';
 import { Observable, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { API_URL } from '../../core/api/api.config';
+import { AuthResponse } from '../../core/api/auth.response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.baseUrl}/register`, data)
       .pipe(
         tap(response => {
-          this.tokenService.setToken(response.access_token);
+          this.tokenService.setToken(response.data.access_token);
         })
       );
   }
-
 }

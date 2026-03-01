@@ -9,7 +9,15 @@
             <ng-icon [name]="icon"></ng-icon>
         </span>
 
-        <input [type]="inputType" [id]="id" [placeholder]="placeholder" [class.pl-10]="icon" class="w-full outline-none bg-gray-50 border border-white 
+        <input
+            [type]="inputType"
+            [id]="id"
+            [placeholder]="placeholder"
+            [class.pl-10]="icon"
+            [value]="value"
+            (input)="handleInput($event)"
+            (blur)="onTouched()"
+            class="w-full outline-none bg-gray-50 border border-white 
              rounded-lg focus:bg-white focus:border-red-400 text-red-400 p-3 pr-10" />
 
         <button *ngIf="type === 'password'" type="button" (click)="togglePasswordVisibility()"
